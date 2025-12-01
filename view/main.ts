@@ -66,9 +66,9 @@ function program() {
     });
     document.getElementById("days")?.addEventListener("touchmove", (e) => {
         const x = e.touches[0].clientX;
-        if (startPosition - x > 85) {
+        if (startPosition - x > 40) {
             nextMonth = currMonth + 1;
-        } else if (x - startPosition > 85) {
+        } else if (x - startPosition > 40) {
             nextMonth = currMonth - 1;
         }
     });
@@ -76,6 +76,7 @@ function program() {
         if (nextMonth >= 0 && nextMonth <= 11) {
             defaultCalendar.goToMonth(nextMonth);
             load();
+            startPosition = 0
         }
     });
 }

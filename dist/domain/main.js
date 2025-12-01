@@ -1,10 +1,13 @@
 "use strict";
 const builder = new CalendarBuilder();
-const defaultCalendar = builder.setCalendarName("default").setStartingYear(2024).build();
+const defaultCalendar = builder
+    .setCalendarName("default")
+    .setStartingYear(2024)
+    .build();
 // Manual changes
 // console.log(defaultCalendar.getYears()[1]);
-defaultCalendar.getYears()[1][179] = new Holiday(defaultCalendar.getYears()[1][179], "DÍA DEF. PÚBLICO");
-defaultCalendar.getYears()[1][68] = new Holiday(defaultCalendar.getYears()[1][68], "DÍA INT. JUEZAS");
+defaultCalendar.getYears()[1][179] = new Holiday(defaultCalendar.getYears()[1][179], "Día Def. Público");
+defaultCalendar.getYears()[1][68] = new Holiday(defaultCalendar.getYears()[1][68], "Día Int. Juezas");
 function calcTermDate() {
     const dateInput = document.getElementById("idNotificationDate");
     const date = dateInput.value.split("-");
@@ -28,7 +31,9 @@ function saveLastCalculatedDate(category, date, term) {
             category: category,
             date: date.join("-"),
             term: term,
-            result: defaultCalendar.getState().calculatedDays[defaultCalendar.getState().calculatedDays.length - 1].getStringDate(),
+            result: defaultCalendar
+                .getState()
+                .calculatedDays[defaultCalendar.getState().calculatedDays.length - 1].getStringDate(),
         });
         if (inLocalStorage.length > 3) {
             inLocalStorage.splice(3);

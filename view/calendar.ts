@@ -148,11 +148,24 @@ function loadPage(state: any) {
         if (state.currentPage[i] instanceof Holiday) {
             const calendarInfo: any = document.getElementById("calendarInfo");
 
-            const description = state.currentPage[i].getDescription();
-            const square = description.includes("Feria") ? "judicial_square" : "holiday_square";
+            let description = state.currentPage[i].getDescription();
+            let square = ""
+            let content = ""
+
+            if(newDay.classList.contains("calculated")) {
+                square = "calculated_square"
+                description = "Fecha computada (" + description + ")"
+                content = state.currentPage[i].date.getDate()
+                console.log(content)
+            } 
+            else if (description.includes("Feria")) {
+                square = "judicial_square"
+            } else {
+                square = "holiday_square"
+            }
 
             newDay.addEventListener("mouseenter", (e) => {
-                calendarInfo.innerHTML = `<span><span class="${square}"></span>${description}</span>`;
+                calendarInfo.innerHTML = `<span><span class="${square}">${content}</span>${description}</span>`;
             });
 
             newDay.addEventListener("mouseleave", (e) => {
@@ -178,6 +191,16 @@ function loadPage(state: any) {
                 state.currentPage[i].getDate().getTime()
             ) {
                 newDay.classList.add("calculated");
+
+                const calendarInfo: any = document.getElementById("calendarInfo");
+                newDay.addEventListener("mouseenter", (e) => {
+                    calendarInfo.innerHTML = `<span><span class="calculated_square">${state.currentPage[i].date.getDate()}</span>Fecha computada</span>`;
+                });
+    
+                newDay.addEventListener("mouseleave", (e) => {
+                    calendarInfo.innerHTML = `<span><span class="judicial_square"></span>Feria Judicial</span>
+                    <span><span class="holiday_square"></span>Feriado</span>`;
+                });
             }
         }
 

@@ -2,7 +2,7 @@
 window.addEventListener("load", program);
 // Boton de guardar en inicio
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../../sw.js");
+    navigator.serviceWorker.register("../sw.js");
 }
 function program() {
     var _a, _b, _c, _d, _e;
@@ -58,10 +58,10 @@ function program() {
     });
     (_d = document.getElementById("days")) === null || _d === void 0 ? void 0 : _d.addEventListener("touchmove", (e) => {
         const x = e.touches[0].clientX;
-        if (startPosition - x > 85) {
+        if (startPosition - x > 40) {
             nextMonth = currMonth + 1;
         }
-        else if (x - startPosition > 85) {
+        else if (x - startPosition > 40) {
             nextMonth = currMonth - 1;
         }
     });
@@ -69,6 +69,7 @@ function program() {
         if (nextMonth >= 0 && nextMonth <= 11) {
             defaultCalendar.goToMonth(nextMonth);
             load();
+            startPosition = 0;
         }
     });
 }
